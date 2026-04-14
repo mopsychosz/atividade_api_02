@@ -1,0 +1,52 @@
+{
+  "info": {
+    "name": "API Cinema Blockbuster",
+    "_postman_id": "12345",
+    "description": "Testes CRUD para gerenciamento de catálogo de filmes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Listar Todos os Filmes",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/filmes"
+      }
+    },
+    {
+      "name": "Cadastrar Novo Filme",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \n    \"titulo\": \"Interstellar\", \n    \"diretor\": \"Christopher Nolan\", \n    \"ano\": 2014, \n    \"genero\": \"Ficção Científica\" \n}"
+        },
+        "url": "http://localhost:3000/filmes"
+      }
+    },
+    {
+      "name": "Atualizar Filme",
+      "request": {
+        "method": "PUT",
+        "body": {
+          "mode": "raw",
+          "raw": "{ \n    \"titulo\": \"Interstellar - Edição de Colecionador\" \n}"
+        },
+        "url": "http://localhost:3000/filmes/ID_DO_FILME_AQUI"
+      }
+    },
+    {
+      "name": "Remover Filme do Catálogo",
+      "request": {
+        "method": "DELETE",
+        "url": "http://localhost:3000/filmes/ID_DO_FILME_AQUI"
+      }
+    }
+  ]
+}
