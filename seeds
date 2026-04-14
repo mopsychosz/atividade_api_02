@@ -1,0 +1,36 @@
+// seed.js
+require('dotenv').config()
+const mongoose = require('mongoose')
+const Filme = require('./models/Filme') // Ajustado para o novo modelo
+const connectDB = require('./config/db')
+
+const filmes = [
+  { titulo: "O Poderoso Chefão", diretor: "Francis Ford Coppola", ano: 1972, genero: "Crime" },
+  { titulo: "Interestelar", diretor: "Christopher Nolan", ano: 2014, genero: "Ficção Científica" },
+  { titulo: "Pulp Fiction", diretor: "Quentin Tarantino", ano: 1994, genero: "Crime" },
+  { titulo: "A Origem", diretor: "Christopher Nolan", ano: 2010, genero: "Ficção Científica" },
+  { titulo: "Matrix", diretor: "Lana e Lilly Wachowski", ano: 1999, genero: "Ficção Científica" },
+  { titulo: "O Senhor dos Anéis: O Retorno do Rei", diretor: "Peter Jackson", ano: 2003, genero: "Fantasia" },
+  { titulo: "Clube da Luta", diretor: "David Fincher", ano: 1999, genero: "Drama" },
+  { titulo: "Cidade de Deus", diretor: "Fernando Meirelles", ano: 2002, genero: "Crime" },
+  { titulo: "Batman: O Cavaleiro das Trevas", diretor: "Christopher Nolan", ano: 2008, genero: "Ação" },
+  { titulo: "Parasita", diretor: "Bong Joon-ho", ano: 2019, genero: "Suspense" }
+]
+
+const seedDB = async () => {
+  try {
+    await connectDB()
+    
+    await Filme.deleteMany() 
+    
+    await Filme.insertMany(filmes)
+    console.log("🎬 Sucesso: Banco de dados populado com 10 filmes clássicos!")
+    
+    process.exit()
+  } catch (err) {
+    console.error("❌ Erro ao popular o banco:", err)
+    process.exit(1)
+  }
+}
+
+seedDB()
