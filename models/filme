@@ -1,0 +1,26 @@
+const mongoose = require('mongoose')
+
+const FilmeSchema = new mongoose.Schema({
+  titulo: {
+    type: String,
+    required: true,
+    trim: true // Adicionado para evitar espaços vazios acidentais
+  },
+  diretor: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  ano: {
+    type: Number,
+    required: true
+  },
+  genero: {
+    type: String,
+    required: true
+  }
+}, { 
+  timestamps: true // Mantém registro de data de criação e atualização
+})
+
+module.exports = mongoose.model('Filme', FilmeSchema)
