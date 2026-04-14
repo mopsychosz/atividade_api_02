@@ -1,4 +1,4 @@
-# Filmes API RESTful
+# Filmes API REST
 
 API RESTful para gerenciamento de um catálogo de filmes, desenvolvida em Node.js e Express com foco em arquitetura limpa (MVC).
 
