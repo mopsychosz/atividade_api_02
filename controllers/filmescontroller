@@ -1,0 +1,59 @@
+const Filme = require('../models/Filme')
+
+exports.getFilmes = async (req, res) => {
+  try {
+    const filmes = await Filme.find()
+    res.status(200).json(filmes)
+  } catch (error) {
+    res.status(500).json({ erro: error.message })
+  }
+}
+
+exports.createFilme = async (req, res) => {
+  try {
+    const { titulo, diretor, ano, genero } = req.body
+
+    if (!titulo || !diretor || !ano || !genero) {
+      return res.status(400).json({ erro: 'Preencha todos os campos (titulo, diretor, ano, genero)' })
+    }
+
+    const filme = new Filme({ titulo, diretor, ano, genero })
+    await filme.save()
+
+    res.status(201).json(filme)
+  } catch (error) {
+    res.status(400).json({ erro: error.message })
+  }
+}
+
+exports.updateFilme = async (req, res) => {
+  try {
+    const filme = await Filme.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true } // runValidators garante que as regras do Schema sejam aplicadas no update
+    )
+
+    if (!filme) {
+      return res.status(404).json({ erro: 'Filme não encontrado no catálogo' })
+    }
+
+    res.status(200).json(filme)
+  } catch (error) {
+    res.status(400).json({ erro: error.message })
+  }
+}
+
+exports.deleteFilme = async (req, res) => {
+  try {
+    const filme = await Filme.findByIdAndDelete(req.params.id)
+
+    if (!filme) {
+      return res.status(404).json({ erro: 'Filme não encontrado' })
+    }
+
+    res.status(200).json({ mensagem: 'Filme removido com sucesso do catálogo' })
+  } catch (error) {
+    res.status(500).json({ erro: error.message })
+  }
+}
